@@ -32,6 +32,8 @@ const MessageInput = styled.div`
 
   input {
     flex-grow: 1;
+    padding: 8px;
+    font-size: 24px;
   }
 `;
 const ChatContainer = () => {
