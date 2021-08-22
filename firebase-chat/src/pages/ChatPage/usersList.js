@@ -7,7 +7,7 @@ const UsersListWrapper = styled.div`
   height: 100vh;
   padding: 0 16px;
 `;
-const UsersList = () => {
+const UsersList = (props) => {
   const [users, setUsers] = useState();
 
   useEffect(() => {
@@ -18,14 +18,22 @@ const UsersList = () => {
         .get();
 
       const usersList = querySnapshot.docs.map((doc) => {
-        return doc.data();
+        return {
+          id: doc.id,
+          ...doc.data(),
+        };
       });
       setUsers(usersList);
     };
 
     getUsers();
   }, []);
-  console.log(users);
+
+  const onClickUser = (user) => {
+    console.log("clicou na div");
+    props.setSelectedUser(user);
+  };
+
   return (
     <UsersListWrapper>
       <div>
@@ -34,7 +42,7 @@ const UsersList = () => {
         <h4>Conversas</h4>
         {users?.map((user, index) => {
           return (
-            <div key={index}>
+            <div onClick={() => onClickUser(user)} key={index}>
               <p>{user.name}</p>
             </div>
           );

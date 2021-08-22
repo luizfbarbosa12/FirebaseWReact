@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import firebase from "firebase";
 
 const ChatPageWrapper = styled.div`
   border: 1px solid red;
@@ -36,15 +37,42 @@ const MessageInput = styled.div`
     font-size: 24px;
   }
 `;
-const ChatContainer = () => {
+const ChatContainer = (props) => {
+  const [messages, setMessages] = useState([]);
+
+  useEffect(() => {
+    const getMessages = async () => {
+      console.log(props.currentUserId);
+      console.log(props.selectedUser);
+      const ref = firebase
+        .firestore()
+        .collection("chats")
+        .doc(`${props.currentUserId}-${props.selectedUser.id}`)
+        .collection("messages")
+        .orderBy("sentAt", "desc");
+      const querySnapshot = await ref.get();
+
+      const messagesList = querySnapshot.docs.map((doc) => {
+        return doc.data();
+      });
+      setMessages(messagesList);
+      console.log(messagesList);
+    };
+
+    getMessages();
+  }, [props.currentUserId, props.selectedUser.id]);
+
   return (
     <ChatPageWrapper>
-      <Header>Conversa com bla</Header>
+      <Header>Conversa com {props.selectedUser.name}</Header>
       <Messages>
-        <p>Darvas - Mensagem 1</p>
-        <p>eu - Mensagem 2</p>
-        <p>Darvas - Mensagem 3</p>
-        <p>eu - Mensagem 4</p>
+        {messages.map((message) => {
+          return (
+            <p>
+              {message.username} - {message.text}
+            </p>
+          );
+        })}
       </Messages>
       <MessageInput>
         <input placeholder="envie sua mensagem" />

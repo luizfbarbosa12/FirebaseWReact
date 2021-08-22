@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ChatContainer from "./ChatContainer";
 import UsersList from "./usersList";
 import styled from "styled-components";
@@ -10,10 +10,16 @@ const ChatContainerWrapper = styled.div`
 `;
 
 const ChatPage = () => {
+  const [selectedUser, setSelectedUser] = useState();
+  const userId = "meuId";
+  console.log(selectedUser);
+
   return (
     <ChatContainerWrapper>
-      <UsersList />
-      <ChatContainer />
+      <UsersList setSelectedUser={setSelectedUser} />
+      {selectedUser && (
+        <ChatContainer currentUserId={userId} selectedUser={selectedUser} />
+      )}
     </ChatContainerWrapper>
   );
 };
