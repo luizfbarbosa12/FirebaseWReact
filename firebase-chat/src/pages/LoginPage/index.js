@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import firebase from "firebase";
 
 import FormPageContainer from "../../Components/FormPageContainer";
 
-export const LoginPage = () => {
+export const LoginPage = (props) => {
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setpasswordValue] = useState("");
   const history = useHistory();
@@ -12,6 +12,12 @@ export const LoginPage = () => {
   const onClickCadastro = () => {
     history.push("/cadastro");
   };
+
+  useLayoutEffect(() => {
+    if (props.currentUser) {
+      history.push("/");
+    }
+  }, []);
 
   const submitLogin = (event) => {
     event.preventDefault();

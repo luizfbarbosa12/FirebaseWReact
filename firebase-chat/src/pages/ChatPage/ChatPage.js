@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ChatContainer from "./ChatContainer";
 import UsersList from "./usersList";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
 
 const ChatContainerWrapper = styled.div`
   display: grid;
@@ -9,10 +10,17 @@ const ChatContainerWrapper = styled.div`
   height: 100vh;
 `;
 
-const ChatPage = () => {
+const ChatPage = (props) => {
   const [selectedUser, setSelectedUser] = useState();
   const userId = "meuId";
-  console.log(selectedUser);
+
+  const history = useHistory();
+
+  useEffect(() => {
+    if (!props.currentUser) {
+      history.push("/login");
+    }
+  }, []);
 
   return (
     <ChatContainerWrapper>

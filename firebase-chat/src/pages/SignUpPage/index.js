@@ -1,10 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useLayoutEffect } from "react";
 import FormPageContainer from "../../Components/FormPageContainer";
 import firebase from "firebase";
+import { useHistory } from "react-router-dom";
 
-export const SignUpPage = () => {
+export const SignUpPage = (props) => {
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setpasswordValue] = useState("");
+  const history = useHistory;
+
+  useLayoutEffect(() => {
+    if (props.currentUser) {
+      history.replace("/");
+    }
+  }, []);
 
   const submitSignUp = (event) => {
     event.preventDefault();
