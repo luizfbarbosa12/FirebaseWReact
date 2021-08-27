@@ -20,7 +20,7 @@ const ChatPage = (props) => {
     if (!props.currentUser) {
       history.push("/login");
     }
-  }, []);
+  }, [props.currentUser]);
 
   return (
     <ChatContainerWrapper>

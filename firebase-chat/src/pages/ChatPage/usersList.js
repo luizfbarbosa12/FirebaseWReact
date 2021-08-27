@@ -7,6 +7,12 @@ const UsersListWrapper = styled.div`
   height: 100vh;
   padding: 0 16px;
 `;
+
+const UsersHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
 const UsersList = (props) => {
   const [users, setUsers] = useState();
 
@@ -34,20 +40,32 @@ const UsersList = (props) => {
     props.setSelectedUser(user);
   };
 
+  const onClickLogout = () => {
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        console.log("funfou");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <UsersListWrapper>
-      <div>
+      <UsersHeader>
         <p>Bem vindo, usuário!</p>
-        <hr />
-        <h4>Conversas</h4>
-        {users?.map((user, index) => {
-          return (
-            <div onClick={() => onClickUser(user)} key={index}>
-              <p>{user.name}</p>
-            </div>
-          );
-        })}
-      </div>
+        <button onClick={onClickLogout}>Logout</button>
+      </UsersHeader>
+      <hr />
+      <h4>Conversas</h4>
+      {users?.map((user, index) => {
+        return (
+          <div onClick={() => onClickUser(user)} key={index}>
+            <p>{user.name}</p>
+          </div>
+        );
+      })}
     </UsersListWrapper>
   );
 };

@@ -6,13 +6,14 @@ import { useHistory } from "react-router-dom";
 export const SignUpPage = (props) => {
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setpasswordValue] = useState("");
-  const history = useHistory;
+  const [nameValue, setNameValue] = useState("");
+  const history = useHistory();
 
   useLayoutEffect(() => {
     if (props.currentUser) {
       history.replace("/");
     }
-  }, []);
+  }, [props.currentUser]);
 
   const submitSignUp = (event) => {
     event.preventDefault();
@@ -20,8 +21,15 @@ export const SignUpPage = (props) => {
     firebase
       .auth()
       .createUserWithEmailAndPassword(emailValue, passwordValue)
-      .then((user) => {
-        console.log(user);
+      .then((credential) => {
+        console.log(credential);
+        return firebase
+          .firestore()
+          .collection("users")
+          .doc(credential.user.uid)
+          .set({
+            name: nameValue,
+          });
       })
       .catch(function (error) {
         const errorCode = error.code;
@@ -36,11 +44,19 @@ export const SignUpPage = (props) => {
   const onChangesSenha = (event) => {
     setpasswordValue(event.target.value);
   };
+  const onChangeNome = (event) => {
+    setNameValue(event.target.value);
+  };
   return (
     <FormPageContainer>
       <h1>Sign up Page</h1>
       <form onSubmit={submitSignUp}>
-        <input type={"text"} placeholder={"Nome de usuario"} />
+        <input
+          value={nameValue}
+          onChange={onChangeNome}
+          type={"text"}
+          placeholder={"Nome do usuario"}
+        />
         <input
           onChange={onChangeEmail}
           value={emailValue}

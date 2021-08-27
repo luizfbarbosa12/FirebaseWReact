@@ -17,7 +17,7 @@ export const LoginPage = (props) => {
     if (props.currentUser) {
       history.push("/");
     }
-  }, []);
+  }, [props.currentUser]);
 
   const submitLogin = (event) => {
     event.preventDefault();
@@ -41,6 +41,19 @@ export const LoginPage = (props) => {
   const onChangesSenha = (event) => {
     setpasswordValue(event.target.value);
   };
+
+  const googleLogin = () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then((result) => {
+        console.log("funcionou");
+      })
+      .catch((error) => {
+        console.log("deu ruim", error);
+      });
+  };
   return (
     <FormPageContainer>
       <h1>Login</h1>
@@ -58,7 +71,9 @@ export const LoginPage = (props) => {
           placeholder={"password"}
         />
         <button>Login</button>
-        <button>Login com google</button>
+        <button onClick={googleLogin} type="button">
+          Login com google
+        </button>
         <button onClick={onClickCadastro}>Cadastro</button>
       </form>
     </FormPageContainer>

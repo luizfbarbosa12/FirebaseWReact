@@ -11,15 +11,11 @@ const App = () => {
 
   console.log("Current user", currentUser, authLoading);
   useLayoutEffect(() => {
-    firebase.auth().onAuthStateChanged(function (user) {
+    return firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
-        const email = user.email;
-        const uid = user.uid;
-        console.log("LOGADO", email, uid);
         setCurrentUser(user);
       } else {
         setCurrentUser(null);
-        console.log("deslogado");
       }
       setAuthLoading(false);
     });
