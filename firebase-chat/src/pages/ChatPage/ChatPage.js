@@ -3,6 +3,7 @@ import ChatContainer from "./ChatContainer";
 import UsersList from "./usersList";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
+import firebase from "firebase";
 
 const ChatContainerWrapper = styled.div`
   display: grid;
@@ -12,9 +13,19 @@ const ChatContainerWrapper = styled.div`
 
 const ChatPage = (props) => {
   const [selectedUser, setSelectedUser] = useState();
-  const userId = "meuId";
-
   const history = useHistory();
+  const [currentUserData, setCurrentUserData] = useState();
+
+  useEffect(() => {
+    firebase
+      .firestore()
+      .collection("users")
+      .doc(props.currentUser.uid)
+      .get()
+      .then((doc) => {
+        setCurrentUserData(doc.data());
+      });
+  }, [props.currentUser?.uid]);
 
   useEffect(() => {
     if (!props.currentUser) {
@@ -24,9 +35,17 @@ const ChatPage = (props) => {
 
   return (
     <ChatContainerWrapper>
-      <UsersList setSelectedUser={setSelectedUser} />
+      <UsersList
+        currentUser={props.currentUser}
+        setSelectedUser={setSelectedUser}
+        currentUserData={currentUserData}
+      />
       {selectedUser && (
-        <ChatContainer currentUserId={userId} selectedUser={selectedUser} />
+        <ChatContainer
+          currentUsername={currentUserData.name}
+          currentUserId={props.currentUser?.uid}
+          selectedUser={selectedUser}
+        />
       )}
     </ChatContainerWrapper>
   );

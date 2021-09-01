@@ -25,7 +25,7 @@ const Messages = styled.div`
   flex-direction: column-reverse;
 `;
 
-const MessageInput = styled.div`
+const MessageInput = styled.form`
   height: 50px;
   border: 1px solid orange;
   display: flex;
@@ -37,17 +37,36 @@ const MessageInput = styled.div`
     font-size: 24px;
   }
 `;
+
+const mountChatIdFromUSerIds = (id1, id2) => {
+  if (id1 > id2) {
+    return `${id1}-${id2}`;
+  } else {
+    return `${id2}-${id1}`;
+  }
+};
 const ChatContainer = (props) => {
   const [messages, setMessages] = useState([]);
+  const [newMessage, setNewMessage] = useState("");
+
+  const onChangeNewMessage = (event) => {
+    setNewMessage(event.target.value);
+  };
 
   useEffect(() => {
     const getMessages = async () => {
       console.log(props.currentUserId);
       console.log(props.selectedUser);
+      let chatId = mountChatIdFromUSerIds(
+        props.currentUserId,
+        props.selectedUser.id
+      );
+
+      console.log("chat Id", chatId);
       const ref = firebase
         .firestore()
         .collection("chats")
-        .doc(`${props.currentUserId}-${props.selectedUser.id}`)
+        .doc(chatId)
         .collection("messages")
         .orderBy("sentAt", "desc");
       const querySnapshot = await ref.get();
@@ -62,6 +81,24 @@ const ChatContainer = (props) => {
     getMessages();
   }, [props.currentUserId, props.selectedUser.id]);
 
+  const sendMessage = (event) => {
+    event.preventDefault();
+    let chatId = mountChatIdFromUSerIds(
+      props.currentUserId,
+      props.selectedUser.id
+    );
+    const ref = firebase
+      .firestore()
+      .collection("chats")
+      .doc(chatId)
+      .collection("messages");
+
+    ref.add({
+      sentAt: new Date(),
+      text: newMessage,
+      username: props.currentUsername,
+    });
+  };
   return (
     <ChatPageWrapper>
       <Header>Conversa com {props.selectedUser.name}</Header>
@@ -74,8 +111,12 @@ const ChatContainer = (props) => {
           );
         })}
       </Messages>
-      <MessageInput>
-        <input placeholder="envie sua mensagem" />
+      <MessageInput onSubmit={sendMessage}>
+        <input
+          onChange={onChangeNewMessage}
+          value={newMessage}
+          placeholder="envie sua mensagem"
+        />
         <button>Enviar</button>
       </MessageInput>
     </ChatPageWrapper>

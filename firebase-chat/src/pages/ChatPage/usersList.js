@@ -51,21 +51,26 @@ const UsersList = (props) => {
         console.log(error);
       });
   };
+
   return (
     <UsersListWrapper>
       <UsersHeader>
-        <p>Bem vindo, usuário!</p>
+        <p>Bem vindo, {props.currentUserData?.name}!</p>
         <button onClick={onClickLogout}>Logout</button>
       </UsersHeader>
       <hr />
       <h4>Conversas</h4>
-      {users?.map((user, index) => {
-        return (
-          <div onClick={() => onClickUser(user)} key={index}>
-            <p>{user.name}</p>
-          </div>
-        );
-      })}
+      {users
+        ?.filter((user) => {
+          return user?.id !== props.currentUser?.uid;
+        })
+        .map((user, index) => {
+          return (
+            <div onClick={() => onClickUser(user)} key={index}>
+              <p>{user.name}</p>
+            </div>
+          );
+        })}
     </UsersListWrapper>
   );
 };
