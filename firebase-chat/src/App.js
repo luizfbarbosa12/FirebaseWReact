@@ -9,7 +9,6 @@ const App = () => {
   const [currentUser, setCurrentUser] = useState();
   const [authLoading, setAuthLoading] = useState(true);
 
-  console.log("Current user", currentUser, authLoading);
   useLayoutEffect(() => {
     return firebase.auth().onAuthStateChanged(function (user) {
       if (user) {

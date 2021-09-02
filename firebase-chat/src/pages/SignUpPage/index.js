@@ -17,7 +17,6 @@ export const SignUpPage = (props) => {
 
   const submitSignUp = (event) => {
     event.preventDefault();
-    console.log("enviou", passwordValue, emailValue);
     firebase
       .auth()
       .createUserWithEmailAndPassword(emailValue, passwordValue)

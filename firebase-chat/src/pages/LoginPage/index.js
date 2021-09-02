@@ -21,7 +21,7 @@ export const LoginPage = (props) => {
 
   const submitLogin = (event) => {
     event.preventDefault();
-    console.log("enviou", passwordValue, emailValue);
+
     firebase
       .auth()
       .signInWithEmailAndPassword(emailValue, passwordValue)

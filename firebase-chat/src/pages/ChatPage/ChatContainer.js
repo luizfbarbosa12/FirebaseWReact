@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import firebase from "firebase";
 
@@ -48,6 +48,7 @@ const mountChatIdFromUSerIds = (id1, id2) => {
 const ChatContainer = (props) => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
+  const fileInputRef = useRef(null);
 
   const onChangeNewMessage = (event) => {
     setNewMessage(event.target.value);
@@ -55,27 +56,24 @@ const ChatContainer = (props) => {
 
   useEffect(() => {
     const getMessages = async () => {
-      console.log(props.currentUserId);
-      console.log(props.selectedUser);
       let chatId = mountChatIdFromUSerIds(
         props.currentUserId,
         props.selectedUser.id
       );
 
-      console.log("chat Id", chatId);
       const ref = firebase
         .firestore()
         .collection("chats")
         .doc(chatId)
         .collection("messages")
         .orderBy("sentAt", "desc");
-      const querySnapshot = await ref.get();
 
-      const messagesList = querySnapshot.docs.map((doc) => {
-        return doc.data();
+      ref.onSnapshot((querySnapshot) => {
+        const messagesList = querySnapshot.docs.map((doc) => {
+          return doc.data();
+        });
+        setMessages(messagesList);
       });
-      setMessages(messagesList);
-      console.log(messagesList);
     };
 
     getMessages();
@@ -93,10 +91,21 @@ const ChatContainer = (props) => {
       .doc(chatId)
       .collection("messages");
 
-    ref.add({
-      sentAt: new Date(),
-      text: newMessage,
-      username: props.currentUsername,
+    console.log(fileInputRef.current.files[0]);
+    //   ref
+    //     .add({
+    //       sentAt: new Date(),
+    //       text: newMessage,
+    //       username: props.currentUsername,
+    //     })
+    //     .then(() => {
+    //       setNewMessage("");
+    //     });
+    const file = fileInputRef.current.files[0];
+    const storageRef = firebase.storage().ref();
+    const newFileRef = storageRef.child(file.name);
+    newFileRef.put(file).then(() => {
+      console.log("yeah it worked");
     });
   };
   return (
@@ -112,6 +121,7 @@ const ChatContainer = (props) => {
         })}
       </Messages>
       <MessageInput onSubmit={sendMessage}>
+        <input type="file" ref={fileInputRef} />
         <input
           onChange={onChangeNewMessage}
           value={newMessage}

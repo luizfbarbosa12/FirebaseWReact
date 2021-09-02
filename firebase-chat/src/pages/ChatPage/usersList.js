@@ -36,7 +36,6 @@ const UsersList = (props) => {
   }, []);
 
   const onClickUser = (user) => {
-    console.log("clicou na div");
     props.setSelectedUser(user);
   };
 
