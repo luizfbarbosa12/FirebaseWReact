@@ -38,6 +38,10 @@ const MessageInput = styled.form`
   }
 `;
 
+const MessageImageContainer = styled.img`
+  max-width: 200px;
+`;
+
 const mountChatIdFromUSerIds = (id1, id2) => {
   if (id1 > id2) {
     return `${id1}-${id2}`;
@@ -45,6 +49,7 @@ const mountChatIdFromUSerIds = (id1, id2) => {
     return `${id2}-${id1}`;
   }
 };
+
 const ChatContainer = (props) => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
@@ -79,34 +84,41 @@ const ChatContainer = (props) => {
     getMessages();
   }, [props.currentUserId, props.selectedUser.id]);
 
-  const sendMessage = (event) => {
+  const uploadFileUrl = async () => {
+    const file = fileInputRef.current.files[0];
+    if (file) {
+      const storageRef = firebase.storage().ref();
+      const newFileRef = storageRef.child(file.name);
+      await newFileRef.put(file);
+      return newFileRef.getDownloadURL();
+    } else {
+      return null;
+    }
+  };
+
+  const sendMessage = async (event) => {
     event.preventDefault();
     let chatId = mountChatIdFromUSerIds(
       props.currentUserId,
       props.selectedUser.id
     );
+    const fileUrl = await uploadFileUrl();
     const ref = firebase
       .firestore()
       .collection("chats")
       .doc(chatId)
       .collection("messages");
 
-    console.log(fileInputRef.current.files[0]);
-    //   ref
-    //     .add({
-    //       sentAt: new Date(),
-    //       text: newMessage,
-    //       username: props.currentUsername,
-    //     })
-    //     .then(() => {
-    //       setNewMessage("");
-    //     });
-    const file = fileInputRef.current.files[0];
-    const storageRef = firebase.storage().ref();
-    const newFileRef = storageRef.child(file.name);
-    newFileRef.put(file).then(() => {
-      console.log("yeah it worked");
-    });
+    ref
+      .add({
+        sentAt: new Date(),
+        text: newMessage,
+        username: props.currentUsername,
+        image: fileUrl,
+      })
+      .then(() => {
+        setNewMessage("");
+      });
   };
   return (
     <ChatPageWrapper>
@@ -114,9 +126,14 @@ const ChatContainer = (props) => {
       <Messages>
         {messages.map((message) => {
           return (
-            <p>
-              {message.username} - {message.text}
-            </p>
+            <div>
+              <p>
+                {message.username} - {message.text}
+                {message.image && (
+                  <MessageImageContainer src={message.image} alt="sent" />
+                )}
+              </p>
+            </div>
           );
         })}
       </Messages>
