@@ -124,9 +124,9 @@ const ChatContainer = (props) => {
     <ChatPageWrapper>
       <Header>Conversa com {props.selectedUser.name}</Header>
       <Messages>
-        {messages.map((message) => {
+        {messages.map((message, index) => {
           return (
-            <div>
+            <div key={index}>
               <p>
                 {message.username} - {message.text}
                 {message.image && (

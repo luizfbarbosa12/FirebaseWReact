@@ -20,7 +20,7 @@ const ChatPage = (props) => {
     firebase
       .firestore()
       .collection("users")
-      .doc(props.currentUser.uid)
+      .doc(props.currentUser?.uid)
       .get()
       .then((doc) => {
         setCurrentUserData(doc.data());
