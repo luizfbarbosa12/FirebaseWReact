@@ -7,7 +7,7 @@ const UsersList = (props) => {
   const { states, setters } = useContext(ChatContext);
 
   const onClickUser = (user) => {
-    props.setSelectedUser(user);
+    setters.setSelectedUser(user);
   };
 
   const onClickLogout = () => {

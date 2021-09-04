@@ -28,8 +28,8 @@ const ChatContainer = (props) => {
   const sendMessage = async (event) => {
     event.preventDefault();
     let chatId = functions.mountChatIdFromUSerIds(
-      props.currentUserId,
-      props.selectedUser.id
+      states.currentUser?.uid,
+      states.selectedUser?.id
     );
     const fileUrl = await uploadFileUrl();
     const ref = firebase
@@ -51,7 +51,7 @@ const ChatContainer = (props) => {
   };
   return (
     <ChatPageWrapper>
-      <Header>Conversa com {props.selectedUser.name}</Header>
+      <Header>Conversa com {states.selectedUser.name}</Header>
       <Messages>
         {states.messages.map((message, index) => {
           return (

@@ -1,22 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useLayoutEffect, useState } from "react";
 import { Switch, Route, BrowserRouter } from "react-router-dom";
 import MainPage from "../pages/ChatPage/MainPage/Index";
 import { LoginPage } from "../pages/LoginPage";
 import { SignUpPage } from "../pages/SignUpPage";
 import firebase from "firebase";
+import { ChatContext } from "../GlobalContext/GlobalContext";
 
 const Router = () => {
-  const [currentUser, setCurrentUser] = useState();
   const [authLoading, setAuthLoading] = useState(true);
   const [googleUserId, setGoogleUserId] = useState();
+  const { states, setters } = useContext(ChatContext);
 
   useLayoutEffect(() => {
     return firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
-        setCurrentUser(user);
+        setters.setCurrentUser(user);
       } else {
-        setCurrentUser(null);
+        setters.setCurrentUser(null);
       }
       setAuthLoading(false);
     });
@@ -27,16 +28,13 @@ const Router = () => {
       {!authLoading && (
         <Switch>
           <Route exact path="/">
-            <MainPage googleUserId={googleUserId} currentUser={currentUser} />
+            <MainPage googleUserId={googleUserId} />
           </Route>
           <Route exact path="/login">
-            <LoginPage
-              setGoogleUserId={setGoogleUserId}
-              currentUser={currentUser}
-            />
+            <LoginPage setGoogleUserId={setGoogleUserId} />
           </Route>
           <Route exact path="/cadastro">
-            <SignUpPage currentUser={currentUser} />
+            <SignUpPage />
           </Route>
         </Switch>
       )}

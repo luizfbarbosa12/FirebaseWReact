@@ -5,23 +5,13 @@ import { ChatContainerWrapper } from "./ChatPage.styles";
 import { ChatContext } from "../../../GlobalContext/GlobalContext";
 
 const MainPage = (props) => {
-  const { states, setters } = useContext(ChatContext);
+  const { states } = useContext(ChatContext);
 
   return (
     <ChatContainerWrapper>
-      <UsersList
-      // googleUserId={props.googleUserId}
-      // currentUser={props.currentUser}
-      // setSelectedUser={setSelectedUser}
-      // currentUserData={currentUserData}
-      />
+      <UsersList googleUserId={props.googleUserId} />
       {states.selectedUser && (
-        <ChatContainer
-        // googleUserId={props.googleUserId}
-        // currentUsername={currentUserData?.name}
-        // currentUserId={props.currentUser?.uid}
-        // selectedUser={selectedUser}
-        />
+        <ChatContainer googleUserId={props.googleUserId} />
       )}
     </ChatContainerWrapper>
   );
