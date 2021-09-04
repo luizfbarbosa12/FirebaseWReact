@@ -1,15 +1,14 @@
 import React, { useLayoutEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import firebase from "firebase";
-
-import FormPageContainer from "../../Components/FormPageContainer";
+import FormPageContainer from "./LoginPage.styles";
 
 export const LoginPage = (props) => {
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setpasswordValue] = useState("");
   const history = useHistory();
 
-  const onClickCadastro = () => {
+  const onClickSignup = () => {
     history.push("/cadastro");
   };
 
@@ -35,37 +34,32 @@ export const LoginPage = (props) => {
       });
   };
 
-  const onChangeEmail = (event) => {
-    setEmailValue(event.target.value);
-  };
-  const onChangesSenha = (event) => {
-    setpasswordValue(event.target.value);
-  };
-
   const googleLogin = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     firebase
       .auth()
       .signInWithPopup(provider)
       .then((result) => {
-        console.log("funcionou");
+        console.log(result.user.uid);
+        props.setGoogleUserId(result.user.uid);
       })
       .catch((error) => {
         console.log("deu ruim", error);
       });
   };
+
   return (
     <FormPageContainer>
       <h1>Login</h1>
       <form onSubmit={submitLogin}>
         <input
-          onChange={onChangeEmail}
+          onChange={(e) => setEmailValue(e.target.value)}
           value={emailValue}
           type={"email"}
           placeholder={"email"}
         />
         <input
-          onChange={onChangesSenha}
+          onChange={(e) => setpasswordValue(e.target.value)}
           value={passwordValue}
           type={"password"}
           placeholder={"password"}
@@ -74,7 +68,7 @@ export const LoginPage = (props) => {
         <button onClick={googleLogin} type="button">
           Login com google
         </button>
-        <button onClick={onClickCadastro}>Cadastro</button>
+        <button onClick={onClickSignup}>Cadastro</button>
       </form>
     </FormPageContainer>
   );

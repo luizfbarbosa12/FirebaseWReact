@@ -1,5 +1,5 @@
 import React, { useState, useLayoutEffect } from "react";
-import FormPageContainer from "../../Components/FormPageContainer";
+import FormPageContainer from "./SignUpPage.styles";
 import firebase from "firebase";
 import { useHistory } from "react-router-dom";
 
@@ -37,33 +37,24 @@ export const SignUpPage = (props) => {
       });
   };
 
-  const onChangeEmail = (event) => {
-    setEmailValue(event.target.value);
-  };
-  const onChangesSenha = (event) => {
-    setpasswordValue(event.target.value);
-  };
-  const onChangeNome = (event) => {
-    setNameValue(event.target.value);
-  };
   return (
     <FormPageContainer>
       <h1>Sign up Page</h1>
       <form onSubmit={submitSignUp}>
         <input
           value={nameValue}
-          onChange={onChangeNome}
+          onChange={(e) => setNameValue(e.target.value)}
           type={"text"}
           placeholder={"Nome do usuario"}
         />
         <input
-          onChange={onChangeEmail}
+          onChange={(e) => setEmailValue(e.target.value)}
           value={emailValue}
           type={"email"}
           placeholder={"email"}
         />
         <input
-          onChange={onChangesSenha}
+          onChange={(e) => setpasswordValue(e.target.value)}
           value={passwordValue}
           type={"password"}
           placeholder={"password"}

@@ -1,39 +1,10 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import React, { useContext } from "react";
+import { UsersListWrapper, UsersHeader } from "./UsersList.styles";
 import firebase from "firebase/app";
+import { ChatContext } from "../../../GlobalContext/GlobalContext";
 
-const UsersListWrapper = styled.div`
-  border: 1px solid blue;
-  height: 100vh;
-  padding: 0 16px;
-`;
-
-const UsersHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
 const UsersList = (props) => {
-  const [users, setUsers] = useState();
-
-  useEffect(() => {
-    const getUsers = async () => {
-      const querySnapshot = await firebase
-        .firestore()
-        .collection("users")
-        .get();
-
-      const usersList = querySnapshot.docs.map((doc) => {
-        return {
-          id: doc.id,
-          ...doc.data(),
-        };
-      });
-      setUsers(usersList);
-    };
-
-    getUsers();
-  }, []);
+  const { states, setters } = useContext(ChatContext);
 
   const onClickUser = (user) => {
     props.setSelectedUser(user);
@@ -54,12 +25,14 @@ const UsersList = (props) => {
   return (
     <UsersListWrapper>
       <UsersHeader>
-        <p>Bem vindo, {props.currentUserData?.name}!</p>
+        <p>
+          Bem vindo, {props.currentUserData?.name || props.googleUserId?.name}!
+        </p>
         <button onClick={onClickLogout}>Logout</button>
       </UsersHeader>
       <hr />
       <h4>Conversas</h4>
-      {users
+      {states.users
         ?.filter((user) => {
           return user?.id !== props.currentUser?.uid;
         })
