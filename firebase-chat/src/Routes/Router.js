@@ -12,7 +12,6 @@ const Router = () => {
   const [googleUserId, setGoogleUserId] = useState();
   const { setters } = useContext(ChatContext);
 
-  console.log(googleUserId);
   useLayoutEffect(() => {
     return firebase.auth().onAuthStateChanged(function (user) {
       if (user) {

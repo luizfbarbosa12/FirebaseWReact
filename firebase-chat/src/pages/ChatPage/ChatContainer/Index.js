@@ -9,7 +9,7 @@ import {
 import { ChatContext } from "../../../GlobalContext/GlobalContext";
 import firebase from "firebase";
 
-const ChatContainer = (props) => {
+const ChatContainer = () => {
   const fileInputRef = useRef(null);
   const { states, setters, functions } = useContext(ChatContext);
 

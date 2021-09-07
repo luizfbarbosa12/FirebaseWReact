@@ -21,13 +21,13 @@ const UsersList = (props) => {
         console.log(error);
       });
   };
-
+  console.log(states.users);
   return (
     <UsersListWrapper>
       <UsersHeader>
         <p>
           Bem vindo,{" "}
-          {states.currentUser.ac.displayName || props.googleUserId?.name}!
+          {states.currentUser?.ac.displayName || props.googleUserId?.name}!
         </p>
         <button onClick={onClickLogout}>Logout</button>
       </UsersHeader>
@@ -35,7 +35,7 @@ const UsersList = (props) => {
       <h4>Conversas</h4>
       {states.users
         ?.filter((user) => {
-          return user?.id !== props.currentUser?.uid;
+          return user?.id !== states.currentUser?.uid;
         })
         .map((user, index) => {
           return (

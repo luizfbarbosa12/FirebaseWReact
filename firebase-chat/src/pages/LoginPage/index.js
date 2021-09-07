@@ -1,22 +1,25 @@
-import React, { useLayoutEffect, useState } from "react";
+import React, { useContext, useLayoutEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import firebase from "firebase";
 import FormPageContainer from "./LoginPage.styles";
+import { ChatContext } from "../../GlobalContext/GlobalContext";
 
 export const LoginPage = (props) => {
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setpasswordValue] = useState("");
   const history = useHistory();
 
+  const { states } = useContext(ChatContext);
+
   const onClickSignup = () => {
     history.push("/cadastro");
   };
 
   useLayoutEffect(() => {
-    if (props.currentUser) {
+    if (states.currentUser) {
       history.push("/");
     }
-  }, [props.currentUser]);
+  }, [states.currentUser]);
 
   const submitLogin = (event) => {
     event.preventDefault();

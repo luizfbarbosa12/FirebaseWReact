@@ -1,19 +1,22 @@
-import React, { useState, useLayoutEffect } from "react";
+import React, { useState, useLayoutEffect, useContext } from "react";
 import FormPageContainer from "./SignUpPage.styles";
 import firebase from "firebase";
 import { useHistory } from "react-router-dom";
+import { ChatContext } from "../../GlobalContext/GlobalContext";
 
-export const SignUpPage = (props) => {
+export const SignUpPage = () => {
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setpasswordValue] = useState("");
   const [nameValue, setNameValue] = useState("");
   const history = useHistory();
 
+  const { states } = useContext(ChatContext);
+
   useLayoutEffect(() => {
-    if (props.currentUser) {
+    if (states.currentUser) {
       history.replace("/");
     }
-  }, [props.currentUser]);
+  }, [states.currentUser]);
 
   const submitSignUp = (event) => {
     event.preventDefault();
