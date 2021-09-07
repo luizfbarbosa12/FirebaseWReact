@@ -9,7 +9,7 @@ import { ChatContext } from "../GlobalContext/GlobalContext";
 
 const Router = () => {
   const [authLoading, setAuthLoading] = useState(true);
-  const [googleUserId, setGoogleUserId] = useState();
+
   const { setters } = useContext(ChatContext);
 
   useLayoutEffect(() => {
@@ -28,10 +28,10 @@ const Router = () => {
       {!authLoading && (
         <Switch>
           <Route exact path="/">
-            <MainPage googleUserId={googleUserId} />
+            <MainPage />
           </Route>
           <Route exact path="/login">
-            <LoginPage setGoogleUserId={setGoogleUserId} />
+            <LoginPage />
           </Route>
           <Route exact path="/cadastro">
             <SignUpPage />

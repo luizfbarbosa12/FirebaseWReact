@@ -17,7 +17,8 @@ export const GlobalState = (props) => {
   const [users, setUsers] = useState(); //finished
   const [currentUser, setCurrentUser] = useState(); //finished
 
-  const history = useHistory();
+  console.log("CURRENT USER", currentUser);
+  console.log("CURRENT USER DATA", currentUser);
 
   const mountChatIdFromUSerIds = (id1, id2) => {
     if (id1 > id2) {
@@ -79,6 +80,27 @@ export const GlobalState = (props) => {
     getUsers();
   }, []);
 
+  // useEffect(() => {
+  //   firebase
+  //     .auth()
+  //     .createUserWithEmailAndPassword(currentUser?.email, 123456)
+  //     .then((credential) => {
+  //       console.log(credential);
+  //       return firebase
+  //         .firestore()
+  //         .collection("users")
+  //         .doc(credential.user.uid)
+  //         .set({
+  //           name: currentUser?.displayName,
+  //         });
+  //     })
+  //     .catch(function (error) {
+  //       const errorCode = error.code;
+  //       const errorMessage = error.message;
+  //       console.log(errorCode, errorMessage);
+  //     });
+  // }, [currentUser, currentUserData]);
+
   const states = {
     messages,
     newMessage,
@@ -96,7 +118,6 @@ export const GlobalState = (props) => {
     setCurrentUser,
   };
   const functions = { mountChatIdFromUSerIds };
-  // const requests = { getMessages, sendMessage, getCurrentUserData, getUsers };
 
   const data = { states, setters, functions };
 

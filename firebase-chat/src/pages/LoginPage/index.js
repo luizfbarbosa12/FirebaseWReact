@@ -9,7 +9,7 @@ export const LoginPage = (props) => {
   const [passwordValue, setpasswordValue] = useState("");
   const history = useHistory();
 
-  const { states } = useContext(ChatContext);
+  const { states, setters } = useContext(ChatContext);
 
   const onClickSignup = () => {
     history.push("/cadastro");
@@ -43,8 +43,8 @@ export const LoginPage = (props) => {
       .auth()
       .signInWithPopup(provider)
       .then((result) => {
-        console.log(result.user.uid);
-        props.setGoogleUserId(result.user.uid);
+        console.log("login com google", result);
+        setters.setCurrentUser(result.user);
       })
       .catch((error) => {
         console.log("deu ruim", error);

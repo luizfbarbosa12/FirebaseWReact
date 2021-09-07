@@ -5,9 +5,16 @@ import {
   Messages,
   MessageInput,
   MessageImageContainer,
+  TextInput,
+  FileInput,
+  FileInputArea,
+  PaperClip,
+  SendButton,
 } from "./ChatContainer.styles";
 import { ChatContext } from "../../../GlobalContext/GlobalContext";
 import firebase from "firebase";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPaperclip, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 
 const ChatContainer = () => {
   const fileInputRef = useRef(null);
@@ -67,13 +74,18 @@ const ChatContainer = () => {
         })}
       </Messages>
       <MessageInput onSubmit={sendMessage}>
-        <input type="file" ref={fileInputRef} />
-        <input
+        <FileInputArea>
+          <PaperClip icon={faPaperclip} />
+          <FileInput ref={fileInputRef} />
+        </FileInputArea>
+        <TextInput
           onChange={(event) => setters.setNewMessage(event.target.value)}
           value={states.newMessage}
           placeholder="envie sua mensagem"
         />
-        <button>Enviar</button>
+        <SendButton>
+          <FontAwesomeIcon icon={faPaperPlane} />
+        </SendButton>
       </MessageInput>
     </ChatPageWrapper>
   );

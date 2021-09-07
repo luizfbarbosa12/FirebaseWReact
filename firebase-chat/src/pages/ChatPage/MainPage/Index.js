@@ -16,10 +16,8 @@ const MainPage = (props) => {
   }, [states.currentUser]);
   return (
     <ChatContainerWrapper>
-      <UsersList googleUserId={props.googleUserId} />
-      {states.selectedUser && (
-        <ChatContainer googleUserId={props.googleUserId} />
-      )}
+      <UsersList />
+      {states.selectedUser && <ChatContainer />}
     </ChatContainerWrapper>
   );
 };
