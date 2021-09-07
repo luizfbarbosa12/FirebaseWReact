@@ -10,8 +10,9 @@ import { ChatContext } from "../GlobalContext/GlobalContext";
 const Router = () => {
   const [authLoading, setAuthLoading] = useState(true);
   const [googleUserId, setGoogleUserId] = useState();
-  const { states, setters } = useContext(ChatContext);
+  const { setters } = useContext(ChatContext);
 
+  console.log(googleUserId);
   useLayoutEffect(() => {
     return firebase.auth().onAuthStateChanged(function (user) {
       if (user) {

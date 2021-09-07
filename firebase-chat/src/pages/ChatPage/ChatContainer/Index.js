@@ -42,7 +42,7 @@ const ChatContainer = (props) => {
       .add({
         sentAt: new Date(),
         text: states.newMessage,
-        username: props.currentUsername,
+        username: states.currentUser.ac.displayName,
         image: fileUrl,
       })
       .then(() => {

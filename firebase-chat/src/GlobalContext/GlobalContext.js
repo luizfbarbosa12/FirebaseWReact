@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from "react";
 import firebase from "firebase";
 import { useHistory } from "react-router-dom";
+
 export const ChatContext = createContext();
 
 export const GlobalState = (props) => {
@@ -11,10 +12,9 @@ export const GlobalState = (props) => {
   const [users, setUsers] = useState(); //finished
   const [currentUser, setCurrentUser] = useState(); //finished
 
-  console.log("CURRENT USER DATA:", currentUserData);
-  console.log("CURRENT USER DATA:", currentUser);
   const history = useHistory();
 
+  console.log(history);
   const mountChatIdFromUSerIds = (id1, id2) => {
     if (id1 > id2) {
       return `${id1}-${id2}`;
@@ -58,7 +58,7 @@ export const GlobalState = (props) => {
 
   useEffect(() => {
     if (!currentUser) {
-      //   history.push("/login");
+      history.replace("/login");
     }
   }, [currentUser]);
 

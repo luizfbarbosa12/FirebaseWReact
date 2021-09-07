@@ -26,7 +26,8 @@ const UsersList = (props) => {
     <UsersListWrapper>
       <UsersHeader>
         <p>
-          Bem vindo, {props.currentUserData?.name || props.googleUserId?.name}!
+          Bem vindo,{" "}
+          {states.currentUser.ac.displayName || props.googleUserId?.name}!
         </p>
         <button onClick={onClickLogout}>Logout</button>
       </UsersHeader>
