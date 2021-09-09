@@ -136,6 +136,7 @@ export const Message = styled.div`
   position: relative;
   margin: 1rem 4rem;
   line-height: 1.6;
+  box-shadow: 2px 2px 10px #000;
 
   &::before {
     content: "";

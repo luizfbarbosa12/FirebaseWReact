@@ -5,7 +5,6 @@ import React, {
   useState,
 } from "react";
 import firebase from "firebase";
-import { useHistory } from "react-router-dom";
 
 export const ChatContext = createContext();
 
