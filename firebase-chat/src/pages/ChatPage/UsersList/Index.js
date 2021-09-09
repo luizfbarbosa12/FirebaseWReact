@@ -46,8 +46,7 @@ const UsersList = (props) => {
             alt="temporary"
           />
           <p>
-            {`Bem vindo,
-            ${
+            {`Bem vindo, ${
               states.currentUser?.ac.displayName || states.currentUserData?.name
             }!`}
           </p>

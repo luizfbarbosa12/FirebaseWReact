@@ -1,5 +1,11 @@
 import React, { useState, useLayoutEffect, useContext } from "react";
-import FormPageContainer from "./SignUpPage.styles";
+import {
+  FormPageContainer,
+  StyledForm,
+  Title,
+  Inputs,
+  SignUpButton,
+} from "./SignUpPage.styles";
 import firebase from "firebase";
 import { useHistory } from "react-router-dom";
 import { ChatContext } from "../../GlobalContext/GlobalContext";
@@ -42,28 +48,28 @@ export const SignUpPage = () => {
 
   return (
     <FormPageContainer>
-      <h1>Sign up Page</h1>
-      <form onSubmit={submitSignUp}>
-        <input
+      <Title>Sign up Page</Title>
+      <StyledForm onSubmit={submitSignUp}>
+        <Inputs
           value={nameValue}
           onChange={(e) => setNameValue(e.target.value)}
           type={"text"}
-          placeholder={"Nome do usuario"}
+          placeholder={"Username"}
         />
-        <input
+        <Inputs
           onChange={(e) => setEmailValue(e.target.value)}
           value={emailValue}
           type={"email"}
-          placeholder={"email"}
+          placeholder={"Email"}
         />
-        <input
+        <Inputs
           onChange={(e) => setpasswordValue(e.target.value)}
           value={passwordValue}
           type={"password"}
-          placeholder={"password"}
+          placeholder={"Password"}
         />
-        <button>Cadastro</button>
-      </form>
+        <SignUpButton>Sign Up</SignUpButton>
+      </StyledForm>
     </FormPageContainer>
   );
 };

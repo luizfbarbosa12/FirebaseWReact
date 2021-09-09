@@ -11,9 +11,9 @@ export const UsersHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 4.3rem;
+  height: 5.3rem;
   background: linear-gradient(45deg, #2a2f32 0%, #323739 100%);
-  padding-left: 1.2rem;
+  padding-left: 2.2rem;
 `;
 
 export const LeftContainer = styled.div`
@@ -22,7 +22,7 @@ export const LeftContainer = styled.div`
   align-items: center;
   width: 100%;
   gap: 0.8rem;
-  font-size: 1.1rem;
+  font-size: 1.6rem;
   text-transform: capitalize;
 
   & > img {
@@ -35,8 +35,8 @@ export const LeftContainer = styled.div`
 `;
 
 export const ProfilePicture = styled.img`
-  height: 3.2rem;
-  width: 3.2rem;
+  height: 4rem;
+  width: 4rem;
   border-radius: 50%;
   object-fit: cover;
 `;
@@ -45,7 +45,7 @@ export const SignOutButton = styled.button`
   background: transparent;
   border: none;
   padding: 1rem;
-  font-size: 1.6rem;
+  font-size: 2rem;
   color: inherit;
   transition: all 0.3s ease;
 
@@ -55,6 +55,7 @@ export const SignOutButton = styled.button`
 
   &:hover {
     color: #bdc0c1;
+    transform: scale(1.2);
   }
 `;
 
@@ -68,14 +69,14 @@ export const SearchArea = styled.div`
 export const SearchInput = styled.input`
   display: flex;
   flex: 1 1 22.33rem;
-  height: 1.8rem;
+  height: 2.5rem;
   background-color: #323739;
   border-radius: 5rem;
   border: none;
-  margin: 0.5rem 0.5rem;
+  margin: 1rem 1rem;
   color: #d6d7d9;
-  padding: 0.8rem;
-  font-size: 0.8rem;
+  padding: 1.2rem;
+  font-size: 1.2rem;
   font-family: inherit;
 
   &:focus {
@@ -85,10 +86,10 @@ export const SearchInput = styled.input`
 
 export const SearchIcon = styled(FontAwesomeIcon)`
   position: absolute;
-  right: 1.2rem;
+  right: 1.4rem;
   top: 50%;
   transform: translate(-50%, -50%);
-  font-size: 0.8rem;
+  font-size: 1.2rem;
 `;
 
 export const ConversationsContainer = styled.div`
@@ -102,8 +103,8 @@ export const Conversation = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  gap: 0.8rem;
-  font-size: 1rem;
+  gap: 1rem;
+  font-size: 1.4rem;
   font-weight: 600;
   padding: 1rem;
   border-bottom: 1px solid #2a2f32;

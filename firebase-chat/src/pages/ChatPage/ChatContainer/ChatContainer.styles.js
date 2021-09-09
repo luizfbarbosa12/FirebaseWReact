@@ -10,43 +10,61 @@ export const ChatPageWrapper = styled.div`
 `;
 
 export const Header = styled.div`
-  height: 4.3rem;
+  height: 5.3rem;
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: 1.4rem;
-  font-weight: 600;
+  justify-content: flex-start;
+  padding: 3rem;
+  font-size: 1.6rem;
+  font-weight: 400;
+  border-bottom: 1px solid #6c7072;
+  opacity: 0.8;
+  gap: 0.8rem;
+
+  & > span {
+    font-weight: 600;
+    text-transform: capitalize;
+  }
+`;
+
+export const ProfilePicture = styled.img`
+  height: 4rem;
+  width: 4rem;
+  border-radius: 50%;
+  object-fit: cover;
 `;
 
 export const Messages = styled.div`
   flex-grow: 1;
-  padding-left: 16px;
+  padding-left: 1.6rem;
   display: flex;
   flex-direction: column-reverse;
+  align-items: flex-end;
 `;
 
 export const MessageInput = styled.form`
-  height: 4rem;
+  height: 6rem;
   align-items: center;
   display: flex;
-  padding: 8px;
+  padding: 1rem;
 `;
 
 export const MessageImageContainer = styled.img`
-  max-width: 200px;
+  max-width: 20rem;
+  border-radius: 0.4rem;
 `;
 
 export const TextInput = styled.input`
   display: flex;
   flex: 1 1 22.33rem;
-  height: 1.8rem;
+  height: 3.5rem;
   background-color: #323739;
   border-radius: 5rem;
   border: none;
   margin: 0.5rem 0.5rem;
   color: #d6d7d9;
-  padding: 0.8rem;
-  font-size: 0.8rem;
+  padding: 1rem;
+  font-size: 1.4rem;
   font-family: inherit;
 
   &:focus {
@@ -55,8 +73,8 @@ export const TextInput = styled.input`
 `;
 
 export const FileInputArea = styled.label`
-  height: 2.4rem;
-  width: 2.4rem;
+  height: 4rem;
+  width: 4rem;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -66,7 +84,12 @@ export const FileInputArea = styled.label`
 export const PaperClip = styled(FontAwesomeIcon)`
   position: absolute;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 2rem;
+  transition: all 0.2s ease;
+
+  &:hover {
+    transform: scale(1.2);
+  }
 `;
 export const FileInput = styled.input.attrs({
   type: "file",
@@ -78,10 +101,61 @@ export const FileInput = styled.input.attrs({
 
 export const SendButton = styled.button`
   border: none;
+  padding: 2.4rem;
   background-color: #056162;
   color: inherit;
   border-radius: 50%;
   height: 2.4rem;
   width: 2.4rem;
   cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    filter: brightness(115%);
+  }
+
+  & > svg {
+    font-size: 2rem;
+  }
+`;
+
+export const Message = styled.div`
+  max-width: 50rem;
+  width: max-content;
+  height: max-content;
+  background-color: #056162;
+  border-radius: 0.4rem;
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  color: #e5eaeb;
+  font-size: 1.4rem;
+  position: relative;
+  margin: 1rem 4rem;
+  line-height: 1.6;
+
+  &::before {
+    content: "";
+    height: 2rem;
+    width: 2rem;
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    background-color: #056162;
+    transform: translateX(-60%) translateY(-10%);
+  }
+`;
+
+export const Username = styled.span`
+  font-weight: 600;
+  color: #131c21;
+`;
+
+export const SentAt = styled.p`
+  opacity: 0.5;
+  font-size: 1rem;
 `;

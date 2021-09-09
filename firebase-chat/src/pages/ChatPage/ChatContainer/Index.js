@@ -10,6 +10,10 @@ import {
   FileInputArea,
   PaperClip,
   SendButton,
+  Message,
+  Username,
+  ProfilePicture,
+  // SentAt,
 } from "./ChatContainer.styles";
 import { ChatContext } from "../../../GlobalContext/GlobalContext";
 import firebase from "firebase";
@@ -32,6 +36,7 @@ const ChatContainer = () => {
     }
   };
 
+  let today = new Date().toLocaleDateString();
   const sendMessage = async (event) => {
     event.preventDefault();
     let chatId = functions.mountChatIdFromUSerIds(
@@ -47,29 +52,39 @@ const ChatContainer = () => {
 
     ref
       .add({
-        sentAt: new Date(),
+        sentAt: today,
         text: states.newMessage,
-        username: states.currentUser.ac.displayName,
+        username:
+          states.currentUser?.ac.displayName || states.currentUserData?.name,
         image: fileUrl,
       })
       .then(() => {
         setters.setNewMessage("");
       });
   };
+
   return (
     <ChatPageWrapper>
-      <Header>Conversa com {states.selectedUser.name}</Header>
+      <Header>
+        <ProfilePicture
+          src={
+            "https://image.shutterstock.com/image-photo/headshot-portrait-smiling-millennial-male-600w-1667439913.jpg"
+          }
+        />
+        Conversa com <span>&nbsp;{states.selectedUser.name}</span>
+      </Header>
       <Messages>
         {states.messages.map((message, index) => {
           return (
-            <div key={index}>
+            <Message key={index}>
               <p>
-                {message.username} - {message.text}
+                <Username>{message.username}</Username> - {message.text}
                 {message.image && (
                   <MessageImageContainer src={message.image} alt="sent" />
                 )}
+                {/* <SentAt>sent at {Date(message.sentAt.nanoseconds)}</SentAt> por que a hora atualiza??? */}
               </p>
-            </div>
+            </Message>
           );
         })}
       </Messages>

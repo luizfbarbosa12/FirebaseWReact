@@ -1,7 +1,15 @@
 import React, { useContext, useLayoutEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import firebase from "firebase";
-import FormPageContainer from "./LoginPage.styles";
+import {
+  Title,
+  FormPageContainer,
+  Inputs,
+  StyledForm,
+  LoginButton,
+  GoogleLogin,
+  SignUpButton,
+} from "./LoginPage.styles";
 import { ChatContext } from "../../GlobalContext/GlobalContext";
 
 export const LoginPage = (props) => {
@@ -53,26 +61,26 @@ export const LoginPage = (props) => {
 
   return (
     <FormPageContainer>
-      <h1>Login</h1>
-      <form onSubmit={submitLogin}>
-        <input
+      <Title>Login</Title>
+      <StyledForm onSubmit={submitLogin}>
+        <Inputs
           onChange={(e) => setEmailValue(e.target.value)}
           value={emailValue}
           type={"email"}
-          placeholder={"email"}
+          placeholder={"Email"}
         />
-        <input
+        <Inputs
           onChange={(e) => setpasswordValue(e.target.value)}
           value={passwordValue}
           type={"password"}
-          placeholder={"password"}
+          placeholder={"Password"}
         />
-        <button>Login</button>
-        <button onClick={googleLogin} type="button">
-          Login com google
-        </button>
-        <button onClick={onClickSignup}>Cadastro</button>
-      </form>
+        <LoginButton>Login</LoginButton>
+        <GoogleLogin onClick={googleLogin} type="button">
+          Login with google
+        </GoogleLogin>
+        <SignUpButton onClick={onClickSignup}>Sign Up</SignUpButton>
+      </StyledForm>
     </FormPageContainer>
   );
 };
