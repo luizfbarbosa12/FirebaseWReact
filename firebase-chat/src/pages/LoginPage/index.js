@@ -51,7 +51,6 @@ export const LoginPage = (props) => {
       .auth()
       .signInWithPopup(provider)
       .then((result) => {
-        console.log("login com google", result);
         setters.setCurrentUser(result.user);
       })
       .catch((error) => {

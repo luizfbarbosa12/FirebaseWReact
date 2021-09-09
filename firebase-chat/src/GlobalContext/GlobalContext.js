@@ -17,9 +17,6 @@ export const GlobalState = (props) => {
   const [users, setUsers] = useState(); //finished
   const [currentUser, setCurrentUser] = useState(); //finished
 
-  console.log("CURRENT USER", currentUser);
-  console.log("CURRENT USER DATA", currentUser);
-
   const mountChatIdFromUSerIds = (id1, id2) => {
     if (id1 > id2) {
       return `${id1}-${id2}`;
