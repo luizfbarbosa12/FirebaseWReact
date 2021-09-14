@@ -13,7 +13,7 @@ import {
   Message,
   Username,
   ProfilePicture,
-  // SentAt,
+  SentAt,
 } from "./ChatContainer.styles";
 import { ChatContext } from "../../../GlobalContext/GlobalContext";
 import firebase from "firebase";
@@ -36,7 +36,7 @@ const ChatContainer = () => {
     }
   };
 
-  let today = new Date().toLocaleDateString();
+  let today = new Date().getTime();
   const sendMessage = async (event) => {
     event.preventDefault();
     let chatId = functions.mountChatIdFromUSerIds(
@@ -62,6 +62,7 @@ const ChatContainer = () => {
         setters.setNewMessage("");
       });
   };
+  console.log(states.messages);
 
   return (
     <ChatPageWrapper>
@@ -82,7 +83,12 @@ const ChatContainer = () => {
                 {message.image && (
                   <MessageImageContainer src={message.image} alt="sent" />
                 )}
-                {/* <SentAt>sent at {Date(message.sentAt.nanoseconds)}</SentAt> por que a hora atualiza??? */}
+                {console.log(message.sentAt)}
+                <SentAt>
+                  sent at {new Date(message.sentAt).toLocaleString()}
+                </SentAt>
+                {/* por
+                que a hora atualiza??? */}
               </p>
             </Message>
           );
