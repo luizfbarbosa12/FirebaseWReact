@@ -39,7 +39,6 @@ export const Messages = styled.div`
   padding-left: 1.6rem;
   display: flex;
   flex-direction: column-reverse;
-  align-items: flex-end;
   overflow-y: scroll;
   overflow-x: hidden;
 
@@ -140,10 +139,10 @@ export const Message = styled.div`
   max-width: 50rem;
   width: max-content;
   height: max-content;
-  background-color: #056162;
-  border-radius: 0.4rem;
+  background-color: ${(props) =>
+    props.messagePositionRight ? "#056162" : "#131C21"};
+  border-radius: 1rem;
   display: flex;
-  align-items: center;
   padding: 1rem;
   color: #e5eaeb;
   font-size: 1.4rem;
@@ -151,6 +150,8 @@ export const Message = styled.div`
   margin: 1rem 4rem;
   line-height: 1.6;
   box-shadow: 2px 2px 10px #000;
+  align-self: ${(props) =>
+    props.messagePositionRight ? "flex-end" : "flex-start"};
 
   &::before {
     content: "";
@@ -160,14 +161,15 @@ export const Message = styled.div`
     left: 100%;
     top: 50%;
     clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-    background-color: #056162;
+    background-color: ${(props) =>
+      props.messagePositionRight ? "#056162" : "#131C21"};
     transform: translateX(-60%) translateY(-10%);
   }
 `;
 
 export const Username = styled.span`
   font-weight: 600;
-  color: #131c21;
+  color: ${(props) => (props.messagePositionRight ? "#131C21" : "#056162")};
 `;
 
 export const SentAt = styled.p`

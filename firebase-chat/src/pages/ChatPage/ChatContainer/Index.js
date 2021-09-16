@@ -66,7 +66,9 @@ const ChatContainer = () => {
         setters.setNewMessage("");
       });
   };
-
+  console.log(
+    states.currentUser?.ac.displayName === states.currentUser.displayName
+  );
   return (
     <ChatPageWrapper>
       <Header>
@@ -80,9 +82,21 @@ const ChatContainer = () => {
       <Messages>
         {states.messages.map((message, index) => {
           return (
-            <Message key={index}>
+            <Message
+              messagePositionRight={
+                message.username === states.currentUser.displayName
+              }
+              key={index}
+            >
               <div>
-                <Username>{message.username}</Username> - {message.text}
+                <Username
+                  messagePositionRight={
+                    message.username === states.currentUser.displayName
+                  }
+                >
+                  {message.username}
+                </Username>{" "}
+                - {message.text}
                 {message.image && (
                   <MessageImageContainer src={message.image} alt="sent" />
                 )}

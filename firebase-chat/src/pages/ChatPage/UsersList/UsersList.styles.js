@@ -41,6 +41,13 @@ export const ProfilePicture = styled.img`
   object-fit: cover;
 `;
 
+export const SignOutText = styled.span`
+  font-size: 1.6rem;
+  text-transform: capitalize;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+`;
 export const SignOutButton = styled.button`
   background: transparent;
   border: none;

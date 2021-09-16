@@ -11,6 +11,7 @@ import {
   SearchArea,
   ConversationsContainer,
   Conversation,
+  SignOutText,
 } from "./UsersList.styles";
 import firebase from "firebase/app";
 import { ChatContext } from "../../../GlobalContext/GlobalContext";
@@ -55,9 +56,12 @@ const UsersList = (props) => {
             }!`}
           </p>
         </LeftContainer>
-        <SignOutButton onClick={onClickLogout}>
-          <FontAwesomeIcon icon={faSignOutAlt} />
-        </SignOutButton>
+        <SignOutText onClick={onClickLogout}>
+          Logout
+          <SignOutButton>
+            <FontAwesomeIcon icon={faSignOutAlt} />
+          </SignOutButton>
+        </SignOutText>
       </UsersHeader>
       <SearchArea>
         <SearchIcon icon={faSearch} />
