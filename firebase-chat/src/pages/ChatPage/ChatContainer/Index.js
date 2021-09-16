@@ -18,7 +18,11 @@ import {
 import { ChatContext } from "../../../GlobalContext/GlobalContext";
 import firebase from "firebase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPaperclip, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPaperclip,
+  faPaperPlane,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
 
 const ChatContainer = () => {
   const fileInputRef = useRef(null);
@@ -62,34 +66,30 @@ const ChatContainer = () => {
         setters.setNewMessage("");
       });
   };
-  console.log(states.messages);
 
   return (
     <ChatPageWrapper>
       <Header>
-        <ProfilePicture
-          src={
-            "https://image.shutterstock.com/image-photo/headshot-portrait-smiling-millennial-male-600w-1667439913.jpg"
-          }
-        />
-        Conversa com <span>&nbsp;{states.selectedUser.name}</span>
+        {states.selectedUser.photoURL ? (
+          <ProfilePicture src={states.selectedUser.photoURL} />
+        ) : (
+          <FontAwesomeIcon icon={faUser} />
+        )}
+        Conversa com <span>{states.selectedUser.name}</span>
       </Header>
       <Messages>
         {states.messages.map((message, index) => {
           return (
             <Message key={index}>
-              <p>
+              <div>
                 <Username>{message.username}</Username> - {message.text}
                 {message.image && (
                   <MessageImageContainer src={message.image} alt="sent" />
                 )}
-                {console.log(message.sentAt)}
                 <SentAt>
                   sent at {new Date(message.sentAt).toLocaleString()}
                 </SentAt>
-                {/* por
-                que a hora atualiza??? */}
-              </p>
+              </div>
             </Message>
           );
         })}

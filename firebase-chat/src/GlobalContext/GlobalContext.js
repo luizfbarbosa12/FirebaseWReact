@@ -76,29 +76,6 @@ export const GlobalState = (props) => {
     getUsers();
   }, []);
 
-  useEffect(() => {
-    currentUser?.email &&
-      firebase
-        .auth()
-        .createUserWithEmailAndPassword(currentUser?.email, "123456")
-        .then((credential) => {
-          console.log(credential);
-          return firebase
-            .firestore()
-            .collection("users")
-            .doc(credential.user.uid)
-            .set({
-              name: currentUser?.displayName,
-            });
-        })
-        .catch(function (error) {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          console.log(errorCode, errorMessage);
-        });
-  }, [currentUser]);
-
-  console.log(currentUser?.email);
   const states = {
     messages,
     newMessage,

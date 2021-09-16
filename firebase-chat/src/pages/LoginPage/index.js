@@ -36,13 +36,14 @@ export const LoginPage = (props) => {
       .auth()
       .signInWithEmailAndPassword(emailValue, passwordValue)
       .then((user) => {
-        console.log(user);
+        // console.log(user);
       })
       .catch(function (error) {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode, errorMessage);
       });
+    alert("Bem vindx!");
   };
 
   const googleLogin = () => {
@@ -56,6 +57,7 @@ export const LoginPage = (props) => {
       .catch((error) => {
         console.log("deu ruim", error);
       });
+    alert("Bem vindx!");
   };
 
   return (

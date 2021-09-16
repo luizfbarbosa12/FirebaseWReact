@@ -14,7 +14,7 @@ export const Header = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding: 3rem;
+  padding: 2rem;
   font-size: 1.6rem;
   font-weight: 400;
   border-bottom: 1px solid #6c7072;
@@ -40,6 +40,20 @@ export const Messages = styled.div`
   display: flex;
   flex-direction: column-reverse;
   align-items: flex-end;
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #323739;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #056162;
+  }
 `;
 
 export const MessageInput = styled.form`

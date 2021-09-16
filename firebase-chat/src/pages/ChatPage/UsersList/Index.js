@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 import {
   UsersListWrapper,
   UsersHeader,
@@ -28,7 +29,7 @@ const UsersList = (props) => {
       .auth()
       .signOut()
       .then(() => {
-        console.log("funfou");
+        // console.log("funfou");
       })
       .catch((error) => {
         console.log(error);
@@ -39,12 +40,15 @@ const UsersList = (props) => {
     <UsersListWrapper>
       <UsersHeader>
         <LeftContainer>
-          <ProfilePicture
-            src={
-              "https://image.shutterstock.com/image-photo/headshot-portrait-smiling-millennial-male-600w-1667439913.jpg"
-            }
-            alt="temporary"
-          />
+          {states.currentUser?.photoURL ? (
+            <ProfilePicture
+              src={states.currentUser?.photoURL}
+              alt="user profile pic"
+            />
+          ) : (
+            <FontAwesomeIcon icon={faUser} />
+          )}
+
           <p>
             {`Bem vindo, ${
               states.currentUser?.ac.displayName || states.currentUserData?.name
@@ -67,11 +71,11 @@ const UsersList = (props) => {
           .map((user, index) => {
             return (
               <Conversation onClick={() => onClickUser(user)} key={index}>
-                <ProfilePicture
-                  src={
-                    "https://image.shutterstock.com/image-photo/headshot-portrait-smiling-millennial-male-600w-1667439913.jpg"
-                  }
-                />
+                {user.photoURL ? (
+                  <ProfilePicture src={user.photoURL} alt="user photo" />
+                ) : (
+                  <FontAwesomeIcon icon={faUser} />
+                )}
                 <p>{user.name}</p>
               </Conversation>
             );

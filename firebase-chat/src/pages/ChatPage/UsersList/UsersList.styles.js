@@ -95,10 +95,24 @@ export const SearchIcon = styled(FontAwesomeIcon)`
 export const ConversationsContainer = styled.div`
   background-color: #131c21;
   flex: 1;
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #323739;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #056162;
+  }
 `;
 
 export const Conversation = styled.div`
-  width: 35rem;
+  width: 100%;
   height: 5.5rem;
   display: flex;
   justify-content: flex-start;

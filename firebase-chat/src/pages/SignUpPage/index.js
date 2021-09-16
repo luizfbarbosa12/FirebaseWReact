@@ -26,11 +26,12 @@ export const SignUpPage = () => {
 
   const submitSignUp = (event) => {
     event.preventDefault();
+    alert("Bem vindx!");
     firebase
       .auth()
       .createUserWithEmailAndPassword(emailValue, passwordValue)
       .then((credential) => {
-        console.log(credential);
+        // console.log(credential);
         return firebase
           .firestore()
           .collection("users")
