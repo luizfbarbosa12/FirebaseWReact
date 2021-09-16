@@ -1,7 +1,11 @@
 # FirebaseWReact
 A project to practice the use of Firebase and React.
 
-On this project, the goal was to learn the different possible uses of firebase products. I implemented Firestore database, Firebase Hosting, Firebase Cloud Functions and Firebase Authentication.
+On this project, the goal was to learn the different possible uses of firebase products. I implemented:
+- Firestore database
+-  Firebase Hosting
+-  Firebase Cloud Functions 
+-  Firebase Authentication.
 
 ## Styling
 
