@@ -66,9 +66,7 @@ const ChatContainer = () => {
         setters.setNewMessage("");
       });
   };
-  console.log(
-    states.currentUser?.ac.displayName === states.currentUser.displayName
-  );
+
   return (
     <ChatPageWrapper>
       <Header>
