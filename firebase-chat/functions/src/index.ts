@@ -1,5 +1,5 @@
 import * as functions from "firebase-functions";
-import { user, UserRecord } from "firebase-functions/v1/auth";
+import { UserRecord } from "firebase-functions/v1/auth";
 
 // // Start writing Firebase Functions
 // // https://firebase.google.com/docs/functions/typescript
@@ -10,5 +10,5 @@ export const helloWorld = functions.https.onRequest((request, response) => {
 });
 
 export const createGoogleUser = functions.auth.user().onCreate((user: UserRecord) => {
-  console.log("USUARIO CRIADO");
-});
+      console.log("USUARIO CRIADO");
+    });
